@@ -12,8 +12,8 @@
 	<title>iGen</title>
 </head>
 <body style="height: 100%">
-	<div class="jumbotron" style="background:transparent url('{% static 'igen-home-2.jpg' %}') no-repeat center center /cover; border-radius: 0;margin: 0; padding: 0; height: 100%;">
-	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(0,0,0,0.5)">
+	<div class="jumbotron" style="background:transparent url('{% static 'igen-home-4.jpg' %}') no-repeat center center /cover; border-radius: 0;margin: 0; padding: 0; height: 100%;">
+	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(0,0,0,0.6)">
 		<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'logo.png' %}" style="height: 45px; border-radius: 22px;"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -22,16 +22,16 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="nav ml-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="{% url 'home' %}">About</a>
+					<a class="nav-link text-warning" href="{% url 'home' %}">ABOUT</a>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link" href="">Resources</a>
+					<a class="nav-link text-warning" href="">RESOURCES</a>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link" href="#">Docs</a>
+					<a class="nav-link text-warning" href="#">DOCS</a>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link" href="{% url 'home' %}">Logout</a>
+					<a class="nav-link text-warning" href="{% url 'logout' %}">LOGOUT</a>
 				</li>
 			</ul>
 		</div>
@@ -39,23 +39,29 @@
 
 	<main role="main" class="align-items-center">
 		<br><br>
-		<div class="row">
+		<div class="row align-items-center">
 			<div class="col-md-1"></div>
 			<div class="col-md-4">
-				<div class="card" style="background-color: rgba(256,256,256,0.8)">
+				<div class="card" style="background-color: rgba(256,256,256,0.9)">
 					<div class="card-body">
 						<h3 class="card-title text-center">Upload DNA Data</h3>
 						<br>
-						<form method="post">
+						<form method="post" action="{% url 'upload' %}" enctype="multipart/form-data">
 							{% csrf_token %}
 							<div class="form-group">
-								<label for="email-field">DNA File Name</label>
-								<input type="email" class="form-control" id="email-field" aria-describedby="emailHelp">
-								<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+								<label for="ancestry-info">Self-Identified Ancestry</label>
+								<select class="form-control" id="ancestry-info" name="self-identified-ancestry">
+									<option>--Select--</option>
+									<option>African</option>
+									<option>Ad Mixed American</option>
+									<option>East Asian</option>
+									<option>European</option>
+									<option>South Asian</option>
+								</select>
 							</div>
 							<div class="form-group">
 								<label for="service-select">Select DNA Service Provider</label>
-								<select class="form-control" id="service-select">
+								<select class="form-control" id="service-select" name="source">
 									<option>--Select--</option>
 									<option>23andMe</option>
 									<option>Ancestry</option>
@@ -64,17 +70,20 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="auth-select">Do you want iGen to use your DNA data to enhance our models?</label>
-								<select class="form-control" id="auth-select">
+								<label for="auth-select">Do you want iGen to use your DNA data to enhance our computational models?</label>
+								<select class="form-control" id="auth-select" name="auth">
 									<option>--Select--</option>
 									<option>Yes</option>
 									<option>No</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="exampleFormControlFile1">Choose DNA File</label>
-								<input type="file" class="form-control-file" id="exampleFormControlFile1">
+								<label for="file-field">Choose DNA File</label>
+								<input type="file" class="form-control-file" id="file-field" name="dna-file">
 							</div>
+							{% if error %}
+								<small class="text-danger">{{ error }}</small>
+							{% endif %}
 							<br>
 							<button type="submit" class="btn btn-primary">Submit »</button>
 						</form>
@@ -83,39 +92,29 @@
 			</div>
 			<div class="col-md-2"></div>
 			<div class="col-md-4">
-				<div class="card" style="background-color: rgba(256,256,256,0.8)">
-					<div class="card-body">
-						<h3 class="card-title text-center">Check Results</h3>
-						<br>
-						<form method="post">
-							{% csrf_token %}
-							<div class="form-group">
-								<label for="email-field">DNA File Name</label>
-								<input type="email" class="form-control" id="email-field" aria-describedby="emailHelp">
-								<small id="emailHelp" class="form-text text-muted">.</small>
-							</div>
-							<div class="form-group">
-								<label for="service-select">Select DNA Service Provider</label>
-								<select class="form-control" id="service-select">
-									<option>--Select--</option>
-									<option>23andMe</option>
-									<option>Ancestry</option>
-									<option>Veritas Genomics</option>
-									<option>Complete Genomics</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="auth-select">Do you want iGen to use your DNA data to enhance our models?</label>
-								<select class="form-control" id="auth-select">
-									<option>--Select--</option>
-									<option>Yes</option>
-									<option>No</option>
-								</select>
-							</div>
-							
+				<div class="container">
+					<div class="card row" style="background-color: rgba(256,256,256,0.9)">
+						<div class="card-body">
+							<h3 class="card-title text-center">Status</h3>
 							<br>
-							<button type="submit" class="btn btn-primary">Submit »</button>
-						</form>
+							<div class="progress">
+								<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+							</div>
+							<br><br>
+							<a href="{% url 'status' %}" type="submit" class="btn btn-warning">Check Status »</a>
+						</div>
+					</div>
+					<br><br>
+					<div class="card row align-self-end" style="background-color: rgba(256,256,256,0.9)">
+						<div class="card-body">
+							<h3 class="card-title text-center">Results</h3>
+							<br>
+							{% for score in prs %}
+								<p>wvweverv</p>
+							{% endfor %}
+							<br><br>
+							<a href="{% url 'results' %}" type="submit" class="btn btn-success text-white">Check Results »</a>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -22,5 +22,9 @@ urlpatterns = [
 	path('home/', core_views.home, name = 'home'),
 	path('signup/', core_views.signup, name = 'signup'),
 	path('login/', core_views.login, name = 'login'),
-
+	path('logout/', core_views.logout, name = 'logout'),
+	path('upload', core_views.upload_dna, name = 'upload'),
+	path('dashboard', core_views.dashboard, name = 'dashboard'),
+	path('status', core_views.check_status, name = 'status'),
+	path('results', core_views.show_results, name = 'results'),
 ]
