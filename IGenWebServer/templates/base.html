@@ -8,11 +8,12 @@
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
 	<title>iGen</title>
 </head>
 <body style="height: 100%">
+	{% block head %}
 	<div class="jumbotron" style="background:transparent url('{% static 'igen-home-2.jpg' %}') no-repeat center center /cover; border-radius: 0;margin: 0; padding: 0; height: 100%;">
+	{% endblock %}
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(0,0,0,0.80)">
 		<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'logo.png' %}" style="height: 45px; border-radius: 22px;"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,10 +23,10 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="nav ml-auto">
 				<li class="nav-item active">
-					<a class="nav-link text-warning" href="{% url 'home' %}">ABOUT</a>
+					<a class="nav-link text-warning" href="{% url 'about' %}">ABOUT</a>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link text-warning" href="#">HOW IT WORKS</a>
+					<a class="nav-link text-warning" href="{% url 'howitworks' %}">HOW IT WORKS</a>
 				</li>
 				<li class="nav-item active">
 					<a class="nav-link text-warning" href="">RESOURCES</a>

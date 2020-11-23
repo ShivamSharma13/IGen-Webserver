@@ -22,7 +22,10 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="nav ml-auto">
 				<li class="nav-item active">
-					<a class="nav-link text-warning" href="{% url 'home' %}">ABOUT</a>
+					<a class="nav-link text-warning" href="{% url 'about' %}">ABOUT</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link text-warning" href="{% url 'howitworks' %}">HOW IT WORKS</a>
 				</li>
 				<li class="nav-item active">
 					<a class="nav-link text-warning" href="">RESOURCES</a>
@@ -96,11 +99,19 @@
 					<div class="card row" style="background-color: rgba(256,256,256,0.9)">
 						<div class="card-body">
 							<h3 class="card-title text-center">Status</h3>
+							{% for score in prs %}
+								<h6>File: <small>{{ score.uuid }}</small></h6>
+								{% if score.job_status %}
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+									</div>
+								{% else %}
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="25">25%</div>
+									</div>
+								{% endif %}
+							{% endfor %}
 							<br>
-							<div class="progress">
-								<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-							</div>
-							<br><br>
 							<a href="{% url 'status' %}" type="submit" class="btn btn-warning">Check Status »</a>
 						</div>
 					</div>
@@ -110,9 +121,9 @@
 							<h3 class="card-title text-center">Results</h3>
 							<br>
 							{% for score in prs %}
-								<p>wvweverv</p>
+								<h6>File: <small>{{ score.uuid }}</small></h6>
+								<h6>Status: {{ score.job_status }}</h6>
 							{% endfor %}
-							<br><br>
 							<a href="{% url 'results' %}" type="submit" class="btn btn-success text-white">Check Results »</a>
 						</div>
 					</div>

@@ -21,11 +21,4 @@ var opts = {
         {strokeStyle: "#FF6600", min: 180, max: 240}, // Yellow
         {strokeStyle: "#FF0000", min: 240, max: 300}  // Red
      ],
-    
   };
-  var target = document.getElementById('foo'); // your canvas element
-  var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-  gauge.maxValue = 300; // set max gauge value
-  gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
-  gauge.animationSpeed = 50; // set animation speed (32 is default value)
-  gauge.set(200); // set actual value

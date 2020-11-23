@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<style type="text/css">
+	/* Set a background image by replacing the URL below */
+	body {
+	  background: url('{% static 'texture-2.jpg' %}') no-repeat center center fixed;
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  background-size: cover;
+	  -o-background-size: cover;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<main role="main" class="align-items-center">
+	<br><br>
+	<div class="row justify-content-md-center">
+		<div class="col-md-11">
+			<div class="card" style="background-color: rgba(256,256,256,0.9)">
+				<div class="card-body">
+					<h3 class="card-title text-center">HOW IT WORKS</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="row justify-content-md-center">
+		<div class="col-md-11">
+			<div class="card" style="background-color: rgba(256,256,256,0.9)">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-3">
+							<h3 class="card-title text-center"></h3>
+						</div>
+						<div class="col-md-9">
+							<h3 class="card-title text-center"></h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="row justify-content-md-center">
+		<div class="col-md-11">
+			<div class="card" style="background-color: rgba(256,256,256,0.9)">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-3">
+							<h3 class="card-title text-center"></h3>
+						</div>
+						<div class="col-md-9">
+							<h3 class="card-title text-center"></h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</main>
+{% endblock %}

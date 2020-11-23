@@ -11,7 +11,10 @@ def home(request):
 	return render(request, 'homepage.html')
 
 def about(request):
-	return render(request, 'signup.html')
+	return render(request, 'about.html')
+
+def howitworks(request):
+	return render(request, 'how.html')
 
 def resources(request):
 	return render(request, 'signup.html')
@@ -72,12 +75,13 @@ def logout(request):
 def dashboard(request, redirect_kwargs = None):
 	if request.method == 'GET':
 		if redirect_kwargs == None:
-			return render(request, 'dashboard.html')
+			user = request.user
+			prs_files = user.prs.all()
+			content = dict()
+			content['prs'] = prs_files
+			return render(request, 'dashboard.html', content)
 		else:
 			if "error" in redirect_kwargs:
-				user = request.user
-				prs_files = user.prs.all()
-				redirect_kwargs['prs'] = prs
 				return render(request, 'dashboard.html', redirect_kwargs)
 
 
@@ -122,7 +126,19 @@ def check_status(request):
 @login_required(login_url='/login/')
 def show_results(request):
 	user = request.user
-	return render(request, 'results.html')
+	#Get the result file.
+	completed_prs = user.prs.all().filter(job_status = True)
+	content = dict()
+	content['user'] = user
+	content['prs'] = {'info':completed_prs[0]}
+
+	#Read scores.
+	with open(os.path.join(content['prs']['info'].home_dir, str(content['prs']['info'].uuid), 'results.tsv')) as f:
+		raw = f.read()
+
+	content['prs']['scores'] = {i.split('\t')[0]:(int(i.split('\t')[1])/100*360) for i in raw.split('\n') if i != ''}
+	print(content)
+	return render(request, 'results.html', content)
 
 
 def run_pipeline(*args):

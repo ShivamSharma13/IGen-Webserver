@@ -26,5 +26,7 @@ urlpatterns = [
 	path('upload', core_views.upload_dna, name = 'upload'),
 	path('dashboard', core_views.dashboard, name = 'dashboard'),
 	path('status', core_views.check_status, name = 'status'),
+	path('about', core_views.about, name = 'about'),
 	path('results', core_views.show_results, name = 'results'),
+	path('howitworks', core_views.howitworks, name = 'howitworks'),
 ]

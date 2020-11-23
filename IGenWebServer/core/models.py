@@ -26,5 +26,5 @@ class PRS(models.Model):
 	creation_date = models.DateField(auto_now_add = True , blank = True)
 
 	def __str__(self):
-		return (str(self.email) + " with ID: " + str(self.uuid))
+		return (str(self.user.email) + " with ID: " + str(self.uuid))
 

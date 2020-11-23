@@ -10,10 +10,19 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<script src="http://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
 	<title>iGen | Results</title>
+	<style type="text/css">
+		/* Set a background image by replacing the URL below */
+		body {
+		  background: url('{% static 'igen-home-4.jpg' %}') no-repeat center center fixed;
+		  -webkit-background-size: cover;
+		  -moz-background-size: cover;
+		  background-size: cover;
+		  -o-background-size: cover;
+		}
+	</style>
 </head>
 
 <body style="height: 100%">
-	<div class="jumbotron" style="background:transparent url('{% static 'igen-home-4.jpg' %}') no-repeat center center /cover; border-radius: 0;margin: 0; padding: 0; height: 100%;">
 	<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(0,0,0,0.6)">
 		<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'logo.png' %}" style="height: 45px; border-radius: 22px;"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +31,9 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link text-warning" href="{% url 'dashboard' %}">DASHBOARD</a>
+				</li>
 				<li class="nav-item active">
 					<a class="nav-link text-warning" href="{% url 'home' %}">ABOUT</a>
 				</li>
@@ -40,20 +52,47 @@
 
 	<main role="main" class="align-items-center">
 		<br><br>
-		<div class="row align-items-center">
-			<div class="col-md-3"></div>
-			<div class="col-md-6">
-				<div class="card row" style="background-color: rgba(256,256,256,0.9)">
-					<div class="card-body">
-						<canvas id="foo">
-
-						</canvas>
-						<p>url: <a href="http://bernii.github.io/gauge.js/">gauge.js</a></p> 	
+		<div class="row align-items-center">		
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<div class="card row" style="background-color: rgba(256,256,256,0.9)">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-3"><h5 class="text-left"><b>Disease Name</b></h5></div>
+								<div class="col-md-3"><h5 class="text-left"><b>Study Population</b></h5></div>
+								<div class="col-md-2"><h5 class="text-left"><b>Link</b></h5></div>		
+								<div class="col-md-3"><h5 class="text-right"><b>Precentile Score</b></h5></div>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-3"></div>
-		</div>		
+				<div class="col-md-1"></div>
+			</div>	
+			<br>
+		{% for disease, score in prs.scores.items %}
+			<div class="row align-items-center">		
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<div class="card row" style="background-color: rgba(256,256,256,0.9)">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-3"><h5>{{ disease }}</h5></div>
+								<div class="col-md-2">European</div>	
+								<div class="col-md-3">
+									<p><a href="">Reference Journal</a></p>
+									<p><a href=""> CDC Link</a></p>
+								</div>	
+								<div class="col-md-3">
+									<canvas id="{{ disease }}"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+			</div>	
+			<br>
+		{% endfor %}
 	</main>
 
 	</div>
@@ -64,5 +103,15 @@
 	<script src="{% static 'gauge.js' %}"></script>
 	{% block javascript %}
     {% endblock %}
+    	{% for disease, score in prs.scores.items %}
+			<script type="text/javascript">
+				var target = document.getElementById('{{ disease }}'); // your canvas element
+				var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+				gauge.maxValue = 300; // set max gauge value
+				gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+				gauge.animationSpeed = 50; // set animation speed (32 is default value)
+				gauge.set( '{{ score }}' ); // set actual value		
+			</script>
+		{% endfor %}
 </body>
 </html>
