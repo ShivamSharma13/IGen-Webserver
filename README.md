@@ -1,17 +1,17 @@
 # IGen - Infections Genetics 
-#### An app that can give you relative risk estimates for multiple ommon Infections by looking at your personal Genome from different Direct To Consumer genetic testing companies
+### An app that can give you relative risk estimates for multiple ommon Infections by looking at your personal Genome from different Direct To Consumer genetic testing companies
 
-###### Merging subject vcf file to the 1000 Genomes Reference Dataset (Before Imputation for PCA and Population Stratification, After Imputation for PRS Score Calculations)
+##### Merging subject vcf file to the 1000 Genomes Reference Dataset (Before Imputation for PCA and Population Stratification, After Imputation for PRS Score Calculations)
 
 merge.py -
 
-###### Imputation
+##### Imputation
 
 
-###### List of Infections
+##### List of Infections
 Folder
 
-###### From Imputed Vcf file to Getting the PRS scores
+##### From Imputed Vcf file to Getting the PRS scores
 Extracting SNPs from the imputed subject vcf file pertaining to the Infections we are interested in
 merge.py -
 
@@ -21,6 +21,6 @@ Generating PRS Score has follwoing two steps:
 
 PRS.py -
 
-###### Percentile Calculation
+##### Percentile Calculation
 
 percentile.py -
