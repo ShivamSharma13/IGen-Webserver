@@ -2,6 +2,12 @@
 ### An app that can give you relative risk estimates for multiple ommon Infections by looking at your personal Genome from different Direct To Consumer genetic testing companies
 
 
+#### Dependencies
+Conda enviroment: 
+
+VCftools, Bcftools, Plink, Eagle=v..
+Python >3.5 pip libraries: pandas, Numpy, Scipy
+openssl=v1.0.2
 
 
 
