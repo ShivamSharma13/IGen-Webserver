@@ -6,26 +6,31 @@ from multiprocessing import Pool
 
 parser=argparse.ArgumentParser()
 parser.add_argument("-i", required=True)
+parser.add_argument("-d")
 args=parser.parse_args()
 
-subprocess.call(["rm", "-r", "imputetemp/"])
-subprocess.call(["mkdir", "imputetemp"])
+subprocess.call(["rm", "-r", args.d + "/imputetemp/"])
+subprocess.call(["mkdir", args.d + "/imputetemp/"])
 
 def openfile(filename, chr):
-	tempoutput=open("imputetemp/" + args.i + "-" + str(chr) + "_impute_filtered", "a")
-	rsidfile=open("imputetemp/rsidfile" + str(chr), "a")
-	with open("imputeoutput/" + filename, "r") as fh:
+	tempoutput=open(args.d + "/imputetemp/" + args.i + "-" + str(chr) + "_impute_filtered", "a")
+	rsidfile=open(args.d + "/imputetemp/rsidfile" + str(chr), "a")
+	genotypeinfo=open(args.d + "/imputetemp/genotypeinfo" + str(chr), "a")
+	with open(args.d + "/imputeoutput/" + filename, "r") as fh:
 		for line in fh:
 			if line.startswith("--- rs"):
 				tempoutput.write(line)
+				line=line.strip("\n")
 				row=line.split(" ")
 				row[1]=row[1].split(":")
 				rsidfile.write(row[1][0] + "\t" + row[1][1] + "\n")
-			#if re.search("^[0-9]",line):
-			#	row=line.split(" ")
-			#	templine="--- " + row[1] + ":" + row[2] + ":" + row[3] + ":" + row[4] + " " + row[2] + " " + row[3] + " " + row[4] + "\n"
-			#	tempoutput.write(templine)
-			#	rsidfile.write(row[1] + "\t" + row[2])
+				genotype=row.index(max(row[5], row[6], row[7]))
+				if genotype==5:
+					genotypeinfo.write(row[1][0] + "\t" + "0/0" + "\n")
+				if genotype==6:
+					genotypeinfo.write(row[1][0] + "\t" + "0/1" + "\n")
+				if genotype==7:
+					genotypeinfo.write(row[1][0] + "\t" + "1/1" + "\n")
 
 openfile(args.i + "_impute2_1", 2)
 openfile(args.i + "_impute2_2", 2)
@@ -45,6 +50,6 @@ for i in range(5, 106):
 
 chrlist=[2,3,6,7,8,12,17,19]
 for chr in chrlist:			
-	sampleoutput=open("imputetemp/" + args.i + "-" + str(chr) + "_awk.samples", "w")
+	sampleoutput=open(args.d + "/imputetemp/" + args.i + "-" + str(chr) + "_awk.samples", "w")
 	sampleoutput.write(args.i)
 
