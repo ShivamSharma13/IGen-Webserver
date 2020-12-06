@@ -56,5 +56,5 @@ for i in range(5, 106):
 chrlist=[2,3,6,7,8,12,17,19]
 for chr in chrlist:			
 	sampleoutput=open(args.d + "/imputetemp/" + args.i.split("/")[-1] + "-" + str(chr) + "_awk.samples", "w")
-	sampleoutput.write(args.i)
+	sampleoutput.write(args.i.split("/")[-1])
 
