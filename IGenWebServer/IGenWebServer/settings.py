@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import socket
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,10 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '0$6fbc++zq2gr4y93cb+3a0m7kaa+i5uryyk7xt!b38i)+=zh3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
-
+if socket.gethostname() == 'bioapp208803.biosci.gatech.edu':
+    DEBUG = False
+    ALLOWED_HOSTS = ["team2.bioapp208803.biosci.gatech.edu", "172.16.87.147"] 
+else:
+    DEBUG = True
 
 # Application definition
 
