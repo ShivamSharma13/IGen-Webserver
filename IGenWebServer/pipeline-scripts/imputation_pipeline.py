@@ -13,7 +13,7 @@ args=parser.parse_args()
 subprocess.call(["bcftools", "convert", "--tsv2vcf", args.i, "-f", "/projects/team-2/html/Phase_Impute/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa","-s", args.i, "-Ov", "-o", args.d + "/" + args.i.split("/")[-1] + ".vcf"])
 
 #remove duplicate locations in vcf 
-subprocess.call(["bcftools", "norm", "-d", "both", "-O", "v", "-o", args.d + "/" + args.i + "_noduplicates.vcf",  args.d + "/" + args.i.split("/")[-1] + ".vcf"])
+subprocess.call(["bcftools", "norm", "-d", "both", "-O", "v", "-o", args.d + "/" + args.i.split("/")[-1] + "_noduplicates.vcf",  args.d + "/" + args.i.split("/")[-1] + ".vcf"])
 
 #remove rsids with missing ref or alt alleles 
 output=open(args.d + "/" + args.i.split("/")[-1] + "_filtered","w")
@@ -39,7 +39,7 @@ subprocess.call(["tabix", args.d + "/" + args.i.split("/")[-1] + "_filtered.gz"]
 #phasing 23andme vcf file by chromosome 
 def phase(ref, chr):
 	subprocess.call(["tabix", "/projects/team-2/html/Phase_Impute/Phase_References/" + ref])
-	subprocess.call(["/projects/team-2/html/Phase_Impute/Eagle2/Eagle_v2.4.1/eagle", "--vcfTarget", args.d + "/" + args.i.split("/")[-1] + "_filtered.gz", "--vcfRef","/projects/team-2/html/Phase_Impute/Phase_References/" + ref, "--geneticMapFile", "/projects/team-2/html/Phase_Impute/Eagle2/Eagle_v2.4.1/tables/genetic_map_hg19_withX.txt.gz", "--outPrefix", args.d + "/eagleoutput/" + args.i + "_eagle" + chr, "--chrom", chr])
+	subprocess.call(["/projects/team-2/html/Phase_Impute/Eagle2/Eagle_v2.4.1/eagle", "--vcfTarget", args.d + "/" + args.i.split("/")[-1] + "_filtered.gz", "--vcfRef","/projects/team-2/html/Phase_Impute/Phase_References/" + ref, "--geneticMapFile", "/projects/team-2/html/Phase_Impute/Eagle2/Eagle_v2.4.1/tables/genetic_map_hg19_withX.txt.gz", "--outPrefix", args.d + "/eagleoutput/" + args.i.split("/")[-1] + "_eagle" + chr, "--chrom", chr])
 	#converting output vcf file to ped file 
 	subprocess.call(["vcftools", "--gzvcf", args.d + "/eagleoutput/" + args.i.split("/")[-1] + "_eagle" + chr + ".vcf.gz", "--out", args.d + "/eagleoutput/" + args.i.split("/")[-1] + "_eagle" + chr,  "--plink"])
 	#converting ped file to gen file 
@@ -49,7 +49,7 @@ def phase(ref, chr):
 
 #phasing gen file from phasing function in 1,000,000 bp sections 
 def impute(map, hap, legend, int_start, int_end, order, chr):
-	subprocess.call(["impute2", "-m", map, "-h", hap, "-l",legend, "-g", args.d + "/eagleoutput/" + args.i + "_eagle" + str(chr) + ".ped" + ".gen", "-int", str(int_start), str(int_end), "-Ne", "20000", "-o", args.d + "/imputeoutput/" + args.i.split("/")[-1] + "_impute" + str(chr) + "_" + str(order)])
+	subprocess.call(["impute2", "-m", map, "-h", hap, "-l",legend, "-g", args.d + "/eagleoutput/" + args.i.split("/")[-1] + "_eagle" + str(chr) + ".ped" + ".gen", "-int", str(int_start), str(int_end), "-Ne", "20000", "-o", args.d + "/imputeoutput/" + args.i.split("/")[-1] + "_impute" + str(chr) + "_" + str(order)])
 
 chrlist=[2,3,6,7,8,12,17,19]
 phaselist=[]
@@ -113,4 +113,6 @@ count= chr_ranges(48811043, 49662512, count, map_19, hap_19, legend_19, 19)
 pool=Pool(int(args.t))
 list(pool.starmap(phase, phaselist))
 list(pool.starmap(impute, imputelist))
+
+print("Complted Imputation Pipeline")
 
