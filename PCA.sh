@@ -1,8 +1,8 @@
 #!/bin/bash
 
-prefix=${1%%.*}
+#first argument is unique output location 
 
-bgzip ${1}
-tabix ${1}.gz
+bgzip merged.vcf 
+tabix merged.vcf.gz
 
-plink --vcf ${1}.gz --make-bed --pca --out ${2}/1000G_PCA_${prefix}
+plink --vcf merged.vcf.gz --make-bed --pca --out ${1}/PCA/1000G_PCA_merged
