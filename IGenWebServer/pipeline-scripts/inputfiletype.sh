@@ -1,5 +1,5 @@
 #!/bin/bash 
-
+cd /projects/team-2/html/biol-8803-IGen/IGenWebServer/pipeline-scripts
 #23andme file 
 prefix=${2%%.*}
 prefix=${prefix//[^[:alnum:]]/}
