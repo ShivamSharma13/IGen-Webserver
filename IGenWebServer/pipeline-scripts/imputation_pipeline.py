@@ -91,6 +91,7 @@ def chr_ranges(start, end, count, map, hap, legend, chr):
 
 
 count= chr_ranges(63096701, 64393884, count, map_2, hap_2, legend_2, 2)
+'''
 count= chr_ranges(49004426, 50124246, count, map_3, hap_3, legend_3, 3)
 count= chr_ranges(134954, 40360207, count, map_6, hap_6, legend_6, 6)
 count= chr_ranges(51855106, 56130723, count, map_6, hap_6, legend_6, 6)
@@ -106,7 +107,7 @@ count= chr_ranges(99212368, 99937609, count, map_12, hap_12, legend_12, 12)
 count= chr_ranges(17411801, 18245166, count, map_17, hap_17, legend_17, 17)
 count= chr_ranges(39430913, 40002820, count, map_19, hap_19, legend_19, 19)
 count= chr_ranges(48811043, 49662512, count, map_19, hap_19, legend_19, 19)
-
+'''
 
 
 #calling phase and impute functions with multiprocessing 

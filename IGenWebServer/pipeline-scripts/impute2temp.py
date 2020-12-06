@@ -34,6 +34,7 @@ def openfile(filename, chr):
 
 openfile(args.i + "_impute2_1", 2)
 openfile(args.i + "_impute2_2", 2)
+'''
 openfile(args.i + "_impute3_3", 3)
 openfile(args.i + "_impute3_4", 3)
 openfile(args.i + "_impute7_106", 7)
@@ -44,9 +45,13 @@ openfile(args.i + "_impute12_110", 12)
 openfile(args.i + "_impute17_111", 17)
 openfile(args.i + "_impute19_112", 19)
 openfile(args.i + "_impute19_113", 19)
+'''
 
+'''
 for i in range(5, 106):
 	openfile(args.i + "_impute6_" + str(i), 6)
+'''
+
 
 chrlist=[2,3,6,7,8,12,17,19]
 for chr in chrlist:			

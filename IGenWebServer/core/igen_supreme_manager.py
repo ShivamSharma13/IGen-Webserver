@@ -7,6 +7,9 @@ def supreme_manager(user_project_dir, user_vcf_file_path, dna_service_provider):
 	print("Calling inputfiletype.sh ...")
 	subprocess.call("../pipeline-scripts/inputfiletype.sh " + dna_service_provider + " " + user_vcf_file_path + " " + user_project_dir, shell = True)
 
+	#Merge file.
+	
+		
 	return
 
 if __name__ == "__main__":

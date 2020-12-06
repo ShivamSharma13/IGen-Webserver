@@ -5,7 +5,7 @@
 
 
 
-python3 merge.py -r 1000G.vcf -t ${2}/${1}_noduplicates.vcf -o ${2}/PCA_merge -c ${1}
+python3 merge.py -r 1000G.vcf -t ${2}/${1}_filtered.vcf -o ${2}/PCA_merge -c ${1}
 
 ./PCA.sh ${2}
 
