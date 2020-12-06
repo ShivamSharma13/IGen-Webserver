@@ -10,14 +10,14 @@ parser.add_argument("-d")
 args=parser.parse_args()
 
 #convert 23andme file to vcf 
-subprocess.call(["bcftools", "convert", "--tsv2vcf", args.i, "-f", "/projects/team-2/html/Phase_Impute/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa","-s", args.i, "-Ov", "-o", args.d + "/" + args.i + ".vcf"])
+subprocess.call(["bcftools", "convert", "--tsv2vcf", args.i, "-f", "/projects/team-2/html/Phase_Impute/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa","-s", args.i, "-Ov", "-o", args.d + "/" + args.i.split("/")[-1] + ".vcf"])
 
 #remove duplicate locations in vcf 
-subprocess.call(["bcftools", "norm", "-d", "both", "-O", "v", "-o", args.d + "/" + args.i + "_noduplicates.vcf",  args.d + "/" + args.i + ".vcf"])
+subprocess.call(["bcftools", "norm", "-d", "both", "-O", "v", "-o", args.d + "/" + args.i + "_noduplicates.vcf",  args.d + "/" + args.i.split("/")[-1] + ".vcf"])
 
 #remove rsids with missing ref or alt alleles 
-output=open(args.d + "/" + args.i + "_filtered","w")
-with open(args.d + "/" + args.i + "_noduplicates.vcf", "r") as fh:
+output=open(args.d + "/" + args.i.split("/")[-1] + "_filtered","w")
+with open(args.d + "/" + args.i.split("/")[-1] + "_noduplicates.vcf", "r") as fh:
 	for line in fh:
 		if line.startswith("#"):
 			output.write(line)
@@ -30,26 +30,26 @@ with open(args.d + "/" + args.i + "_noduplicates.vcf", "r") as fh:
 				output.write(line)
 
 #zip vcf file 
-subprocess.call(["bgzip", args.d + "/" + args.i + "_filtered"])
+subprocess.call(["bgzip", args.d + "/" + args.i.split("/")[-1] + "_filtered"])
 
 #index input vcf file 
-subprocess.call(["tabix", args.d + "/" + args.i + "_filtered.gz"])
+subprocess.call(["tabix", args.d + "/" + args.i.split("/")[-1] + "_filtered.gz"])
 
 
 #phasing 23andme vcf file by chromosome 
 def phase(ref, chr):
 	subprocess.call(["tabix", "/projects/team-2/html/Phase_Impute/Phase_References/" + ref])
-	subprocess.call(["/projects/team-2/html/Phase_Impute/Eagle2/Eagle_v2.4.1/eagle", "--vcfTarget", args.d + "/" + args.i + "_filtered.gz", "--vcfRef","/projects/team-2/html/Phase_Impute/Phase_References/" + ref, "--geneticMapFile", "/projects/team-2/html/Phase_Impute/Eagle2/Eagle_v2.4.1/tables/genetic_map_hg19_withX.txt.gz", "--outPrefix", args.d + "/eagleoutput/" + args.i + "_eagle" + chr, "--chrom", chr])
+	subprocess.call(["/projects/team-2/html/Phase_Impute/Eagle2/Eagle_v2.4.1/eagle", "--vcfTarget", args.d + "/" + args.i.split("/")[-1] + "_filtered.gz", "--vcfRef","/projects/team-2/html/Phase_Impute/Phase_References/" + ref, "--geneticMapFile", "/projects/team-2/html/Phase_Impute/Eagle2/Eagle_v2.4.1/tables/genetic_map_hg19_withX.txt.gz", "--outPrefix", args.d + "/eagleoutput/" + args.i + "_eagle" + chr, "--chrom", chr])
 	#converting output vcf file to ped file 
-	subprocess.call(["vcftools", "--gzvcf", args.d + "/eagleoutput/" + args.i + "_eagle" + chr + ".vcf.gz", "--out", args.d + "/eagleoutput/" + args.i + "_eagle" + chr,  "--plink"])
+	subprocess.call(["vcftools", "--gzvcf", args.d + "/eagleoutput/" + args.i.split("/")[-1] + "_eagle" + chr + ".vcf.gz", "--out", args.d + "/eagleoutput/" + args.i.split("/")[-1] + "_eagle" + chr,  "--plink"])
 	#converting ped file to gen file 
-	subprocess.call(["gtool", "-P", "--ped", args.d + "/eagleoutput/" + args.i + "_eagle" + chr + ".ped","--map", args.d + "/eagleoutput/" + args.i + "_eagle" + chr + ".map"])
+	subprocess.call(["gtool", "-P", "--ped", args.d + "/eagleoutput/" + args.i.split("/")[-1] + "_eagle" + chr + ".ped","--map", args.d + "/eagleoutput/" + args.i.split("/")[-1] + "_eagle" + chr + ".map"])
 
 
 
 #phasing gen file from phasing function in 1,000,000 bp sections 
 def impute(map, hap, legend, int_start, int_end, order, chr):
-	subprocess.call(["impute2", "-m", map, "-h", hap, "-l",legend, "-g", args.d + "/eagleoutput/" + args.i + "_eagle" + str(chr) + ".ped" + ".gen", "-int", str(int_start), str(int_end), "-Ne", "20000", "-o", args.d + "/imputeoutput/" + args.i + "_impute" + str(chr) + "_" + str(order)])
+	subprocess.call(["impute2", "-m", map, "-h", hap, "-l",legend, "-g", args.d + "/eagleoutput/" + args.i + "_eagle" + str(chr) + ".ped" + ".gen", "-int", str(int_start), str(int_end), "-Ne", "20000", "-o", args.d + "/imputeoutput/" + args.i.split("/")[-1] + "_impute" + str(chr) + "_" + str(order)])
 
 chrlist=[2,3,6,7,8,12,17,19]
 phaselist=[]

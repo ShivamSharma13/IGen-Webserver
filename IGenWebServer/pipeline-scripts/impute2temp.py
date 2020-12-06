@@ -13,7 +13,7 @@ subprocess.call(["rm", "-r", args.d + "/imputetemp/"])
 subprocess.call(["mkdir", args.d + "/imputetemp/"])
 
 def openfile(filename, chr):
-	tempoutput=open(args.d + "/imputetemp/" + args.i + "-" + str(chr) + "_impute_filtered", "a")
+	tempoutput=open(args.d + "/imputetemp/" + args.i.split("/")[-1] + "-" + str(chr) + "_impute_filtered", "a")
 	rsidfile=open(args.d + "/imputetemp/rsidfile" + str(chr), "a")
 	genotypeinfo=open(args.d + "/imputetemp/genotypeinfo" + str(chr), "a")
 	with open(args.d + "/imputeoutput/" + filename, "r") as fh:
@@ -50,6 +50,6 @@ for i in range(5, 106):
 
 chrlist=[2,3,6,7,8,12,17,19]
 for chr in chrlist:			
-	sampleoutput=open(args.d + "/imputetemp/" + args.i + "-" + str(chr) + "_awk.samples", "w")
+	sampleoutput=open(args.d + "/imputetemp/" + args.i.split("/")[-1] + "-" + str(chr) + "_awk.samples", "w")
 	sampleoutput.write(args.i)
 
