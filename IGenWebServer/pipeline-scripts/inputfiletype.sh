@@ -7,7 +7,7 @@ prefix=${prefix//[^[:alnum:]]/}
 mkdir ${3}/eagleoutput
 mkdir ${3}/imputeoutput
 
-if  [[ $1 == 23andme ]];
+if  [[ $1 == 23andMe ]];
 then
 	./masterscript.sh $2 3 $3;
 fi 

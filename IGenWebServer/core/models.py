@@ -5,8 +5,9 @@ import uuid
 
 PUBLIC_DNA_CHOICES = (('23andMe','23andMe'),
 					('Ancestry','Ancestry'),
-					('Veritas Genomics','Veritas Genomics'),
-					('Complete Genomics','Complete Genomics'))
+					('VeritasGenomics','Veritas Genomics'),
+					('CompleteGenomics','Complete Genomics'),
+					('FTDNA', 'Family Tree DNA'))
 
 SELF_IDENTIFIED_CHOICES = (('African', 'African'),
 						('Ad Mixed American', 'Ad Mixed American'),

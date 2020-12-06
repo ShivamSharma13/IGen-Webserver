@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 import os
 from .models import PRS, PUBLIC_DNA_CHOICES, SELF_IDENTIFIED_CHOICES
 from IGenWebServer.settings import BASE_DIR
+import threading
+import logging
+from .igen_supreme_manage import supreme_manager
 
 # Create your views here.
 def home(request):
@@ -108,10 +111,19 @@ def upload_dna(request):
 		file_dir = os.path.join(home_dir, str(model_object_prs.uuid))
 		os.makedirs(file_dir)
 
-		with open(os.path.join(file_dir, 'input-file.txt'), "wb") as f:
+		user_vcf_file_path = os.path.join(file_dir, 'input-file.txt')
+		with open(user_vcf_file_path, "wb") as f:
 			f.write(file.read())
 
-		model_object_prs.save()
+		#model_object_prs.save()
+
+		#Arguments for the pipeline.
+		arguments = {'prs_object':model_object_prs, 'user_home_dir':home_dir, 'user_vcf_file_path': user_vcf_file_path, 'dna_service_provider': dna_source}
+
+		#Starting pipeline in the background.
+		pipeline_thread = threading.Thread(target=run_pipeline, kwargs=arguments)
+		pipeline_thread.start()
+
 		return redirect('dashboard')
 	elif request.method == 'GET':
 		return redirect('dashboard',  permanent = True)
@@ -141,10 +153,13 @@ def show_results(request):
 	return render(request, 'results.html', content)
 
 
-def run_pipeline(*args):
-	pass
+def run_pipeline(prs_object, user_home_dir, user_vcf_file_path, dna_service_provider):
+	log_file_path = os.path.join(user_home_dir, str(prs_object.uuid), "pipeline.log")
+	logging.basicConfig(filename=log_file_path, filemode='w', format='[%(levelname)s] - %(message)s', level=logging.INFO)
+	logging.info('Running Supreme Pipeline for: %s and PRS Object ID: %s', prs_object.user.email, str(prs_object.uuid))
+	
+	supreme_manager(user_home_dir, user_vcf_file_path, dna_service_provider, log_file_path)
 	'''
-	1. Raw file comes in.
 	2. Convert to VCF file. [Sara]
 	3. Imputation and Phasing. [Sara]
 	4. One Time - PCA [Saving]
