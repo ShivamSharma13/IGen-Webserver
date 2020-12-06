@@ -7,7 +7,7 @@ from .models import PRS, PUBLIC_DNA_CHOICES, SELF_IDENTIFIED_CHOICES
 from IGenWebServer.settings import BASE_DIR
 import threading
 import logging
-from .igen_supreme_manage import supreme_manager
+from .igen_supreme_manager import supreme_manager
 
 # Create your views here.
 def home(request):
@@ -158,7 +158,7 @@ def run_pipeline(prs_object, user_home_dir, user_vcf_file_path, dna_service_prov
 	logging.basicConfig(filename=log_file_path, filemode='w', format='[%(levelname)s] - %(message)s', level=logging.INFO)
 	logging.info('Running Supreme Pipeline for: %s and PRS Object ID: %s', prs_object.user.email, str(prs_object.uuid))
 	
-	supreme_manager(user_home_dir, user_vcf_file_path, dna_service_provider, log_file_path)
+	supreme_manager(os.path.join(user_home_dir, str(prs_object.uuid)), user_vcf_file_path, dna_service_provider)
 	'''
 	2. Convert to VCF file. [Sara]
 	3. Imputation and Phasing. [Sara]
