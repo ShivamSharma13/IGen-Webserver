@@ -1,6 +1,6 @@
 #!/bin/bash 
-1=${1##*/}
-cat ${3}/imputetemp/${1}-2_impute_filtered | awk '{split($2,a,":"); $2="2:"a[2]"_"a[3]"_"a[4]; print $1,$2,$3,$4,$5}' > ${3}/imputetemp/${1}-2_awk.gen
+
+cat ${3}/imputetemp/${${1##*/}}-2_impute_filtered | awk '{split($2,a,":"); $2="2:"a[2]"_"a[3]"_"a[4]; print $1,$2,$3,$4,$5}' > ${3}/imputetemp/${${1##*/}}-2_awk.gen
 
 #cat ${3}/imputetemp/${1}-3_impute_filtered | awk '{split($2,a,":"); $2="3:"a[2]"_"a[3]"_"a[4]; print $1,$2,$3,$4,$5}' > ${3}/imputetemp/${1}-3_awk.gen
 #cat ${3}/imputetemp/${1}-6_impute_filtered | awk '{split($2,a,":"); $2="6:"a[2]"_"a[3]"_"a[4]; print $1,$2,$3,$4,$5}' > ${3}/imputetemp/${1}-6_awk.gen
