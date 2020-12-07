@@ -134,6 +134,25 @@ def check_status(request):
 	user = request.user
 	completed_prs = user.prs.all()
 
+	#Read the Log files.
+	content = dict()
+	for prs_obj in completed_prs:
+		prs_obj_home_dir = prs_obj.home_dir
+		prs_obj_uuid = str(prs_obj.uuid)
+
+		#Get the log file.
+		prs_obj_log_file = os.path.join(prs_obj_home_dir, prs_obj_uuid, "pipeline.log")
+
+		if not os.path.exists(prs_obj_log_file):
+			continue
+		#Read the log file.
+		with open(prs_obj_log_file) as f:
+			raw = f.read()
+
+		status_entries = [i for i in raw.split("\n")]
+		content[prs_obj_uuid] = status_entries
+
+	return render(request, 'results.html', content)
 
 
 @login_required(login_url='/login/')
