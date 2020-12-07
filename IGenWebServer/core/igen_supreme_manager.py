@@ -10,13 +10,13 @@ def supreme_manager(user_project_dir, user_vcf_file_path, dna_service_provider):
 	logging.info("Starting with Pipeline.")
 
 	print("Calling inputfiletype.sh ...")
-	subprocess.call("../pipeline-scripts/inputfiletype.sh " + dna_service_provider + " " + user_vcf_file_path + " " + user_project_dir, shell = True)
+	subprocess.call("/projects/team-2/html/biol-8803-IGen/IGenWebServer/pipeline-scripts/inputfiletype.sh " + dna_service_provider + " " + user_vcf_file_path + " " + user_project_dir, shell = True)
 	logging.info("Completed Imputaton step.")
 	
 	#Merge file.
 	logging.info("Starting with PCA..")
 	print("Performing PCA ...")	
-	subprocess.call("../pipeline-scripts/masterPCA.sh " + user_vcf_file_path + " " + user_project_dir, shell = True)
+	subprocess.call("/projects/team-2/html/biol-8803-IGen/IGenWebServer/pipeline-scripts/masterPCA.sh " + user_vcf_file_path + " " + user_project_dir, shell = True)
 	logging.info("Finished performing PCA.")
 
 	#Get the PCA Token.
@@ -29,7 +29,7 @@ def supreme_manager(user_project_dir, user_vcf_file_path, dna_service_provider):
 	logging.info("Starting with PRS calculations.")
 	print("Post PCA Merge...")	
 	reference_token_file_for_merge = os.path.join("/projects/team-2/html/lib", token + "_Reference.vcf")
-	subprocess.call("../pipeline-scripts/post_pca.sh " + user_vcf_file_path + " " + user_project_dir + " " + reference_token_file_for_merge, shell=True)
+	subprocess.call("/projects/team-2/html/biol-8803-IGen/IGenWebServer/pipeline-scripts/post_pca.sh " + user_vcf_file_path + " " + user_project_dir + " " + reference_token_file_for_merge, shell=True)
 	logging.info("Completed Everything.")
 
 	return True
