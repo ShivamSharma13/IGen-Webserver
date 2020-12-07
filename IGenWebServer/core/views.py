@@ -145,7 +145,7 @@ def show_results(request):
 	content['prs'] = {'info':completed_prs[0]}
 
 	#Read scores.
-	with open(os.path.join(content['prs']['info'].home_dir, str(content['prs']['info'].uuid), 'results.tsv')) as f:
+	with open(os.path.join(content['prs']['info'].home_dir, str(content['prs']['info'].uuid), "finaloutput", 'percentiles.txt')) as f:
 		raw = f.read()
 
 	content['prs']['scores'] = {i.split('\t')[0]:(int(i.split('\t')[1])/100*360) for i in raw.split('\n') if i != ''}

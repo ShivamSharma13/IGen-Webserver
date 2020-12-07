@@ -30,6 +30,8 @@ args = parser.parse_args()
 def percentile(output,basename,name):
     ID=[] #list of IDs of population
     Score=[]   #list of scores of population
+    if not os.path.exists(output+'/'+basename+'.profile'):
+        return 50
     f=open(output+'/'+basename+'.profile', "r")
     header=f.readline()
     header=header.split()
@@ -86,6 +88,7 @@ if os.path.exists(args.SNP):
             subprocess.call("awk 'NR!=1{print $3}' "+args.out+"/"+infect+".clumped > "+args.out+"/"+infect+".valid.snp", shell=True, universal_newlines=True)
             subprocess.call("plink --bfile "+args.out+"/final --score "+args.SNP+"/"+infection+" 2 5 8 header --extract "+args.out+"/"+infect+".valid.snp --out "+args.out+"/"+infect+" ", shell=True, universal_newlines=True)
         else:
+            print("-------------------------------------Hello=============================")
             subprocess.call("plink --bfile "+args.out+"/final --score "+args.SNP+"/"+infection+" 2 5 8 header --out "+args.out+"/"+infect+" ", shell=True, universal_newlines=True)
         
         #Calculating percentile for each infection from the PRS scores file
