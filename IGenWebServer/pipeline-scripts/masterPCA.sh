@@ -3,9 +3,10 @@
 #first argument is user ID - must be in 23and me format from the inputfiletype.sh
 #second argument is unique output location 
 
+cd /projects/team-2/html/biol-8803-IGen/IGenWebServer/pipeline-scripts
 
-
-python3 merge.py -r 1000G.vcf -t ${2}/${1}_filtered.vcf -o ${2}/PCA_merge -c ${1}
+gunzip ${2}/inputfile_filtered.gz
+python3 merge.py -r /projects/team-2/html/1000G.vcf -t ${2}/inputfile_filtered.vcf -o ${2}/PCA_merge -c inputfile
 
 ./PCA.sh ${2}
 
