@@ -27,9 +27,8 @@ grep "#" $2 > ${prefix}_header
 
 cat ${prefix}_nohash | awk '{print $1"\t"$2"\t"$3"\t"$4$5}'> ${prefix}_temp
 
-cat ${prefix}_header ${prefix}_temp >${prefix}23format
+cat ${prefix}_header ${prefix}_temp >${prefix}
 rm ${prefix}_nohash ${prefix}_header ${prefix}_temp
 
-./masterscript.sh ${prefix}23format 3 $3
+./masterscript.sh ${prefix} 3 $3
 fi
-

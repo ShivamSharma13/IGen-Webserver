@@ -93,6 +93,11 @@ def upload_dna(request):
 	if request.method == 'POST':
 		user = request.user
 		dna_source = request.POST['source']
+		
+		#Special case: FTDNA
+		if dna_source == 'Family Tree DNA':
+			dna_source = "FTDNA"
+
 		internal_usage_permission = request.POST['auth']
 		file = request.FILES['dna-file']
 		self_identified_ancestry = request.POST['self-identified-ancestry']
