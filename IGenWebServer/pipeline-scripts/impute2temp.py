@@ -9,7 +9,7 @@ parser.add_argument("-i", required=True)
 parser.add_argument("-d")
 args=parser.parse_args()
 
-subprocess.call(["rm", "-r", args.d + "/imputetemp/"])
+#subprocess.call(["rm", "-r", args.d + "/imputetemp/"])
 subprocess.call(["mkdir", args.d + "/imputetemp/"])
 
 def openfile(filename, chr):
@@ -32,8 +32,8 @@ def openfile(filename, chr):
 				if genotype==7:
 					genotypeinfo.write(row[1][0] + "\t" + "1/1" + "\n")
 
-openfile(args.i + "_impute2_1", 2)
-openfile(args.i + "_impute2_2", 2)
+openfile(args.i.rstrip(".txt") + "_impute2_1", 2)
+openfile(args.i.rstrip(".txt") + "_impute2_2", 2)
 '''
 openfile(args.i + "_impute3_3", 3)
 openfile(args.i + "_impute3_4", 3)

@@ -51,7 +51,8 @@ def phase(ref, chr):
 def impute(map, hap, legend, int_start, int_end, order, chr):
 	subprocess.call(["impute2", "-m", map, "-h", hap, "-l",legend, "-g", args.d + "/eagleoutput/" + args.i.split("/")[-1] + "_eagle" + str(chr) + ".ped" + ".gen", "-int", str(int_start), str(int_end), "-Ne", "20000", "-o", args.d + "/imputeoutput/" + args.i.split("/")[-1] + "_impute" + str(chr) + "_" + str(order)])
 
-chrlist=[2,3,6,7,8,12,17,19]
+#chrlist=[2,3,6,7,8,12,17,19]
+chrlist=[2]
 phaselist=[]
 
 
