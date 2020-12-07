@@ -19,6 +19,7 @@ def supreme_manager(user_project_dir, user_vcf_file_path, dna_service_provider):
 	token = [i for i in raw.split("\n")][0]
 
 	reference_token_file_for_merge = os.path.join("/projects/team-2/html/lib", token + "_Reference.vcf")
+	os.mkdir(os.path.join(user_project_dir, post_knn_merge))
 	subprocess.call("python3 merge.py -r " + reference_token_file_for_merge + " -t " + os.path.join(user_project_dir, "inputfile_filtered") + " -o " + os.path.join(user_project_dir, post_knn_merge), " -c " + user_vcf_file_path)
 
 	return
