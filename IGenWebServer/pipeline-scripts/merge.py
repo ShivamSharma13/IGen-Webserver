@@ -34,8 +34,8 @@ if os.path.exists(args.reference) and os.path.exists(args.test):
     subprocess.call("grep -v '##' "+args.test+" > "+args.out+"/sample.vcf", shell=True, universal_newlines=True)
     
     #Taking in both sets of vcf files
-    df=pd.read_csv('reference.vcf', sep='\t')
-    sample=pd.read_csv('sample.vcf', sep='\t')
+    df=pd.read_csv(args.out+'/reference.vcf', sep='\t')
+    sample=pd.read_csv(args.out+'/sample.vcf', sep='\t')
     
     #Merging only the genotype col from subject vcf file with the reference vcf based on rsids
     merge=df.merge(sample[['ID', args.col]], on="ID", how="inner")

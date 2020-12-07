@@ -56,3 +56,5 @@ test=scaler.transform(sample_array)
 #predicting ancestry of sample
 y_pred = classifier.predict(test)
 
+with open(args.d + "/token_s_d.txt", "w") as f:
+	f.write(y_pred[0])
