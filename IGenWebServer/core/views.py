@@ -111,7 +111,7 @@ def upload_dna(request):
 		file_dir = os.path.join(home_dir, str(model_object_prs.uuid))
 		os.makedirs(file_dir)
 
-		user_vcf_file_path = os.path.join(file_dir, 'input-file.txt')
+		user_vcf_file_path = os.path.join(file_dir, 'inputfile')
 		with open(user_vcf_file_path, "wb") as f:
 			f.write(file.read())
 
@@ -132,7 +132,8 @@ def upload_dna(request):
 @login_required(login_url='/login/')
 def check_status(request):
 	user = request.user
-	return None
+	completed_prs = user.prs.all()
+
 
 
 @login_required(login_url='/login/')
@@ -163,7 +164,7 @@ def run_pipeline(prs_object, user_home_dir, user_vcf_file_path, dna_service_prov
 	prs_object.job_status = True
 	prs_object.save()
 	return True
-	
+
 	'''
 	2. Convert to VCF file. [Sara]
 	3. Imputation and Phasing. [Sara]
