@@ -32,8 +32,8 @@ def openfile(filename, chr):
 				if genotype==7:
 					genotypeinfo.write(row[1][0] + "\t" + "1/1" + "\n")
 
-openfile(args.i.rstrip(".txt") + "_impute2_1", 2)
-openfile(args.i.rstrip(".txt") + "_impute2_2", 2)
+openfile(args.i.split("/")[-1] + "_impute2_1", 2)
+openfile(args.i.split("/")[-1] + "_impute2_2", 2)
 '''
 openfile(args.i + "_impute3_3", 3)
 openfile(args.i + "_impute3_4", 3)
