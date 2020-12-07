@@ -156,7 +156,7 @@ def check_status(request):
 
 		status_entries = raw.split("\n")
 		content[prs_obj_uuid] = status_entries
-		print(content)
+		#print(content)
 	return render(request, 'status.html', {'content': content})
 
 
