@@ -17,7 +17,8 @@ def supreme_manager(user_project_dir, user_vcf_file_path, dna_service_provider):
 		raw = f.read()
 
 	token = [i for i in raw.split("\n")][0]
-
+	
+	print("Post PCA Merge...")	
 	reference_token_file_for_merge = os.path.join("/projects/team-2/html/lib", token + "_Reference.vcf")
 	subprocess.call("../pipeline-scripts/post_pca.sh " + user_vcf_file_path + " " + user_project_dir + " " + reference_token_file_for_merge, shell=True)
 
