@@ -115,7 +115,7 @@ def upload_dna(request):
 		with open(user_vcf_file_path, "wb") as f:
 			f.write(file.read())
 
-		#model_object_prs.save()
+		model_object_prs.save()
 
 		#Arguments for the pipeline.
 		arguments = {'prs_object':model_object_prs, 'user_home_dir':home_dir, 'user_vcf_file_path': user_vcf_file_path, 'dna_service_provider': dna_source}
@@ -149,7 +149,7 @@ def show_results(request):
 		raw = f.read()
 
 	content['prs']['scores'] = {i.split('\t')[0]:(int(i.split('\t')[1])/100*360) for i in raw.split('\n') if i != ''}
-	print(content)
+	
 	return render(request, 'results.html', content)
 
 
@@ -158,7 +158,12 @@ def run_pipeline(prs_object, user_home_dir, user_vcf_file_path, dna_service_prov
 	logging.basicConfig(filename=log_file_path, filemode='w', format='[%(levelname)s] - %(message)s', level=logging.INFO)
 	logging.info('Running Supreme Pipeline for: %s and PRS Object ID: %s', prs_object.user.email, str(prs_object.uuid))
 	
-	supreme_manager(os.path.join(user_home_dir, str(prs_object.uuid)), user_vcf_file_path, dna_service_provider)
+	status = supreme_manager(os.path.join(user_home_dir, str(prs_object.uuid)), user_vcf_file_path, dna_service_provider)
+
+	prs_object.job_status = True
+	prs_object.save()
+	return True
+	
 	'''
 	2. Convert to VCF file. [Sara]
 	3. Imputation and Phasing. [Sara]
