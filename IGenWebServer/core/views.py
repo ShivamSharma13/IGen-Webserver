@@ -149,10 +149,10 @@ def check_status(request):
 		with open(prs_obj_log_file) as f:
 			raw = f.read()
 
-		status_entries = [i for i in raw.split("\n")]
+		status_entries = raw.split("\n")
 		content[prs_obj_uuid] = status_entries
-
-	return render(request, 'results.html', content)
+		print(content)
+	return render(request, 'status.html', {'content': content})
 
 
 @login_required(login_url='/login/')

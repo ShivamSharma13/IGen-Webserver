@@ -1,1 +1,9 @@
-[INFO] - /Users/shivam/Desktop/BIOL8803/biol-8803-IGen/IGenWebServer/core/views.py changed, reloading.
+[INFO] - Running Supreme Pipeline for: mailtoshivam13@gmail.com and PRS Object ID: 2a6822e4-a4e9-4344-a074-f059f3b5b1a8
+[INFO] - Starting with Pipeline.
+[INFO] - Completed Imputaton step.
+[INFO] - Starting with PCA..
+[INFO] - Finished performing PCA.
+[INFO] - Read the token file.
+[INFO] - Starting with PRS calculations.
+[INFO] - Completed Everything.
+[WARNING] - Not Found: /favicon.ico

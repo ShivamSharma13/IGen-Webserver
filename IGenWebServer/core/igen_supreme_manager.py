@@ -30,7 +30,7 @@ def supreme_manager(user_project_dir, user_vcf_file_path, dna_service_provider):
 	print("Post PCA Merge...")	
 	reference_token_file_for_merge = os.path.join("/projects/team-2/html/lib", token + "_Reference.vcf")
 	subprocess.call("/projects/team-2/html/biol-8803-IGen/IGenWebServer/pipeline-scripts/post_pca.sh " + user_vcf_file_path + " " + user_project_dir + " " + reference_token_file_for_merge, shell=True)
-	logging.info("Completed Everything.")
+	logging.info("Completed Everything. Results are now available.")
 
 	return True
 
