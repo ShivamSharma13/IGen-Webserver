@@ -6,7 +6,7 @@
 cd /projects/team-2/html/biol-8803-IGen/IGenWebServer/pipeline-scripts
 
 gunzip ${2}/inputfile_filtered.gz
-python3 merge.py -r /projects/team-2/html/1000G.vcf -t ${2}/inputfile_filtered.vcf -o ${2}/PCA_merge -c inputfile
+python3 merge.py -r /projects/team-2/html/1000G.vcf -t ${2}/inputfile_filtered -o ${2}/PCA_merge -c inputfile
 
 ./PCA.sh ${2}
 
