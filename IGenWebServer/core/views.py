@@ -182,7 +182,6 @@ def run_pipeline(prs_object, user_home_dir, user_vcf_file_path, dna_service_prov
 	log_file_path = os.path.join(user_home_dir, str(prs_object.uuid), "pipeline.log")
 	logging.basicConfig(filename=log_file_path, filemode='w', format='[%(levelname)s] - %(message)s', level=logging.INFO)
 	logging.info('Running Supreme Pipeline for: %s and PRS Object ID: %s', prs_object.user.email, str(prs_object.uuid))
-	print("1")
 
 	status = supreme_manager(os.path.join(user_home_dir, str(prs_object.uuid)), user_vcf_file_path, dna_service_provider)
 
