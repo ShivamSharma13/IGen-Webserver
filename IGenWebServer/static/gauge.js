@@ -14,11 +14,17 @@ var opts = {
     strokeColor: '#E0E0E0',  // to see which ones work best for you
     generateGradient: true,
     highDpiSupport: true,     // High resolution support
+	staticLabels: {
+	  font: "10px sans-serif",  // Specifies font
+	  labels: [0,10,20,30,40,50,60,70,80,90,100],  // Print labels at these values
+	  color: "#000000",  // Optional: Label text color
+	  fractionDigits: 0 , // Optional: Numerical precision. 0=round off.
+	},
     staticZones: [
-        {strokeStyle: "#0000FF", min: 0, max: 60}, // Red from 100 to 60
-        {strokeStyle: "#00FF00", min: 60, max: 120}, // Yellow
-        {strokeStyle: "#FFDD00", min: 120, max: 180}, // Green
-        {strokeStyle: "#FF6600", min: 180, max: 240}, // Yellow
-        {strokeStyle: "#FF0000", min: 240, max: 300}  // Red
+        {strokeStyle: "#0000FF", min: 0, max: 20}, // Red from 100 to 60
+        {strokeStyle: "#00FF00", min: 20, max: 40}, // Yellow
+        {strokeStyle: "#FFDD00", min: 40, max: 60}, // Green
+        {strokeStyle: "#FF6600", min: 60, max: 80}, // Yellow
+        {strokeStyle: "#FF0000", min: 80, max: 100}  // Red
      ],
   };

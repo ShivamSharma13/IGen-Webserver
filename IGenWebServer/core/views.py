@@ -92,7 +92,7 @@ def dashboard(request, redirect_kwargs = None):
 def upload_dna(request):
 	if request.method == 'POST':
 		user = request.user
-		dna_source = request.POST['source']
+		dna_source = "Ancestry"
 		
 		#Special case: FTDNA
 		if dna_source == 'Family Tree DNA':
@@ -173,7 +173,7 @@ def show_results(request):
 	with open(os.path.join(content['prs']['info'].home_dir, str(content['prs']['info'].uuid), "finaloutput", 'percentiles.txt')) as f:
 		raw = f.read()
 
-	content['prs']['scores'] = {i.split('\t')[0]:(int(i.split('\t')[1])/100*360) for i in raw.split('\n') if i != ''}
+	content['prs']['scores'] = {i.split('\t')[0]:(int(i.split('\t')[1])) for i in raw.split('\n') if i != ''}
 	
 	return render(request, 'results.html', content)
 

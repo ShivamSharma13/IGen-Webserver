@@ -61,17 +61,6 @@
 						<form method="post" action="{% url 'upload' %}" enctype="multipart/form-data">
 							{% csrf_token %}
 							<div class="form-group">
-								<label for="ancestry-info">Self-Identified Ancestry</label>
-								<select class="form-control" id="ancestry-info" name="self-identified-ancestry">
-									<option>--Select--</option>
-									<option value="African">African (American Black, West Saharan, Central Africans)</option>
-									<option value="Ad Mixed American">Ad Mixed American (Latino, Hispanic, Columbian, Peruvian)</option>
-									<option value="East Asian">East Asian (Chinese, Japanese, Korean)</option>
-									<option value="European">European (American Whites, UK, Germany, Scandinavian)</option>
-									<option value="South Asian">South Asian (Indian, Pakistani, Bangladesh)</option>
-								</select>
-							</div>
-							<div class="form-group">
 								<label for="service-select">Select DNA Service Provider</label>
 								<select class="form-control" id="service-select" name="source">
 									<option>--Select--</option>
@@ -81,7 +70,7 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="auth-select">Do you want iGen to use your DNA data to enhance our computational models?</label>
+								<label for="auth-select">Do you want iGen to retain your raw DNA data??</label>
 								<select class="form-control" id="auth-select" name="auth">
 									<option>--Select--</option>
 									<option>Yes</option>
