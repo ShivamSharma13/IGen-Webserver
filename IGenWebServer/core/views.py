@@ -20,7 +20,7 @@ def howitworks(request):
 	return render(request, 'how.html')
 
 def resources(request):
-	return render(request, 'signup.html')
+	return render(request, 'resources.html')
 
 def docs(request):
 	return render(request, 'signup.html')
