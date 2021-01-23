@@ -30,7 +30,8 @@ PCA.sh -
 KNN.py -
 
 #### List of Infections
-Folder
+Chicken pox, Shingles, Cold sores, Mononucleosis, Mumps, Hepatitis B, HIV, TB, Strep throat, Yeast Infections, Childhood ear infections
+
 
 #### From Imputed Vcf file to Getting the PRS scores
 Extracting SNPs from the imputed subject vcf file pertaining to the Infections we are interested in
