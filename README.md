@@ -1,6 +1,7 @@
 # IGen - Infection Genetics 
 ### An app that can give you relative risk estimates for multiple common infections by looking at your personal genome from different Direct To Consumer genetic testing companies
 
+Check out our website application! http://team2.bioapp208803.biosci.gatech.edu/login/
 
 #### Dependencies
 Conda enviroment: 
