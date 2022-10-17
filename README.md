@@ -12,7 +12,7 @@ openssl=v1.0.2
 
 #### Pipeline
 
-![iGen_Final_Pipeline](https://github.gatech.edu/storage/user/43860/files/7aa4a000-5d78-11eb-8095-c328d5b1c755)
+![iGen_Final_Pipeline]([https://github.com/ShivamSharma13/IGen-Webserver/blob/master/Pipeline.jpeg])
 
 #### Merging subject vcf file to the 1000 Genomes Reference Dataset (Before Imputation for PCA and Population Stratification, After Imputation for PRS Score Calculations)
 
